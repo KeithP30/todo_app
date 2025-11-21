@@ -316,6 +316,113 @@ header h1 {
     box-shadow: 0 0 12px rgba(255, 42, 109, 0.4);
 }
 
+/* ==== Tombol mata tetap kotak di ujung kanan ==== */
+.password-wrapper {
+    position: relative;
+    display: block;
+    width: 100%; /* Pastikan wrapper mengikuti lebar input */
+}
+
+/* Beri ruang di kanan input agar teks tidak tertutup ikon */
+.password-wrapper input[type="password"],
+.password-wrapper input[type="text"] {
+    width: 100%;
+    padding-right: 48px; /* Harus >= (lebar tombol + right offset) */
+    box-sizing: border-box;
+}
+
+/* Tombol mata: ukuran tetap, posisi absolut di kanan */
+.eye-btn {
+    position: absolute !important; /* Gunakan !important untuk prioritas */
+    top: 10%;
+    right: 10px;                 /* Jarak dari tepi kanan input */
+    width: 32px !important;      /* Tegaskan lebar dengan !important */
+    height: 32px !important;     /* Tegaskan tinggi dengan !important */
+    padding: 0 !important;       /* Hilangkan padding jika mengganggu */
+    min-width: 32px !important;  /* Pastikan tidak menyusut di bawah ukuran tetap */
+    min-height: 32px !important; /* Pastikan tidak menyusut di bawah ukuran tetap */
+    border: none;
+    border-radius: 6px;
+    display: flex;               /* Gunakan flex, bukan inline-flex */
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    line-height: 0;              /* Hilangkan line-height */
+    z-index: 3;                  /* Di atas input */
+    -webkit-appearance: none;    /* Hilangkan gaya default */
+    appearance: none;
+    flex-shrink: 0;              /* Jangan menyusut */
+    background: transparent;     /* Background transparan */
+    box-sizing: border-box;      /* Sertakan padding dalam ukuran total */
+    overflow: visible;           /* Pastikan ikon tidak terpotong */
+    /* Tambahkan transform untuk posisi presisi jika diperlukan */
+    transform: none
+}
+
+/* Gaya untuk ikon mata */
+.eye-btn svg {
+    width: 18px !important;      /* Tegaskan ukuran ikon */
+    height: 18px !important;     /* Tegaskan ukuran ikon */
+    display: block !important;   /* Ikon jangan inline */
+    pointer-events: none;        /* Klik dilewatkan ke tombol */
+    stroke: currentColor;        /* Warna ikon mengikuti warna teks tombol */
+    fill: none;                  /* Jangan isi bentuk ikon */
+    flex-shrink: 0;              /* Ikon jangan menyusut */
+}
+
+/* Gaya saat hover dan fokus */
+.eye-btn:hover {
+    filter: drop-shadow(0 0 6px rgba(0, 240, 255, 0.25));
+}
+    
+.eye-btn:focus {
+    outline: 2px solid rgba(0, 240, 255, 0.18);
+    outline-offset: 2px;
+    border-radius: 6px;
+}
+
+/* Gaya untuk layar kecil (mobile) */
+@media (max-width: 420px) {
+    .password-wrapper input[type="password"],
+    .password-wrapper input[type="text"] {
+        padding-right: 56px;     /* Sesuaikan dengan ukuran tombol mobile */
+    }
+    .eye-btn {
+        right: 8px;              /* Jarak dari tepi kanan input */
+        width: 36px !important;  /* Ukuran tombol lebih besar */
+        height: 36px !important; 
+        min-width: 36px !important;
+        min-height: 36px !important;
+    }
+    .eye-btn svg {
+        width: 20px !important;  
+        height: 20px !important;
+    }
+}
+
+/* ------- kontrol tampilan ikon mata ------- */
+.eye-btn svg.icon-eye,
+.eye-btn svg.icon-eye-slash {
+  width: 18px;
+  height: 18px;
+  display: block;        /* default untuk SVG */
+  pointer-events: none;
+}
+
+/* default: tampilkan eye, sembunyikan eye-slash */
+.eye-btn svg.icon-eye { display: block; }
+.eye-btn svg.icon-eye-slash { display: none; }
+
+
+.eye-btn[data-state="shown"] svg.icon-eye { display: none; }
+.eye-btn[data-state="shown"] svg.icon-eye-slash { display: block; }
+
+
+.eye-btn svg.icon-eye-slash { display: none !important; }
+.eye-btn[data-state="shown"] svg.icon-eye { display: none !important; }
+.eye-btn[data-state="shown"] svg.icon-eye-slash { display: block !important; }
+
+
 /* === RESPONSIVE === */
 @media (max-width: 600px) {
     .auth-container {
